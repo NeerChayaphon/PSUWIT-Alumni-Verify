@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import logoImage from '../assets/PWA_LOGO-02-white-crop-logo.png';
+import {Helmet} from "react-helmet";
 
 interface FormData {
     firstName: string;
@@ -110,7 +111,10 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-       <div className={`min-h-screen ${bgColor} flex flex-col items-center justify-center px-4 w-full`}>
+        <div className={`min-h-screen ${bgColor} flex flex-col items-center justify-center px-4 w-full`}>
+            <Helmet>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            </Helmet>
             <div className="text-center mb-8">
                 <img src={logoImage} alt="Logo" className="h-20" />
                 <p className="text-sm text-white mt-2">PSU.WITTAYANUSORN ALUMNI</p>
