@@ -7,8 +7,8 @@ import spinner from '../assets/spinner.json';
 import notfound from '../assets/notfound.json';
 import found from '../assets/found.json';
 import { CSSTransition } from 'react-transition-group';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface FormData {
     firstName: string;
@@ -246,18 +246,18 @@ const Home: React.FC = () => {
 
                         )}
                         {/* Close button positioned at the top right of the modal */}
-                        {/* <button
-                            className="absolute top-4 right-4 bg-indigo-700 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
+                        <button
+                            className="absolute top-4 right-4 bg-indigo-700 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-3 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
                             onClick={closeModal}
                         >
                             ปิด
-                        </button> */}
-                        <button
+                        </button>
+                        {/* <button
                             className="absolute top-4 right-4 text-gray-800 text-2xl font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2"
                             onClick={closeModal}
                         >
                             <FontAwesomeIcon icon={faTimes} />
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </CSSTransition>
