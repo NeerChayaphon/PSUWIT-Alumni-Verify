@@ -293,7 +293,7 @@ const Home: React.FC = () => {
             </CSSTransition>
 
             <div className="fixed bottom-0 left-0 right-0 bg-gray-900 bg-opacity-10 text-white px-4 py-1 text-center text-xs">
-                <p>Developed and maintained by Neer and Far (Gen 12)</p>
+                <p>Develop and maintain by Neer and Far (Gen 12)</p>
             </div>
 
         </div>
