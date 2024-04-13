@@ -66,7 +66,6 @@ const Home: React.FC = () => {
     const [apiData, setApiData] = useState<ApiData[]>([]);
     const [displayData, setDisplayData] = useState<ApiData[]>([]);
 
-    console.log(apiData)
     const [isLoading, setIsLoading] = useState(true);
 
     const changeBgColor = (colorClass: string) => {
