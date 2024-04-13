@@ -110,7 +110,7 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <div className={`min-h-screen ${bgColor} flex flex-col items-center justify-center px-4`}>
+       <div className={`min-h-screen ${bgColor} flex flex-col items-center justify-center px-4 w-full`}>
             <div className="text-center mb-8">
                 <img src={logoImage} alt="Logo" className="h-20" />
                 <p className="text-sm text-white mt-2">PSU.WITTAYANUSORN ALUMNI</p>
@@ -153,45 +153,45 @@ const Home: React.FC = () => {
             </div>
 
             {isModalOpen && (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
-        <div className="bg-white p-8 rounded-lg shadow-xl max-w-screen-sm w-full mx-4 my-8 overflow-y-auto relative">
-            <h2 className="text-2xl font-semibold mb-4 text-center">ข้อมูลที่คุณค้นหา</h2>
-            {displayData.length > 0 ? (
-                <div className="overflow-x-auto max-h-96">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <th className="px-4 py-2 text-left sm:px-6">ชื่อ</th>
-                                <th className="px-4 py-2 text-left sm:px-6">นามสกุล</th>
-                                <th className="px-4 py-2 text-left sm:px-6">รุ่น</th>
-                                <th className="px-4 py-2 text-left sm:px-6">รหัสประจำตัว</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            {displayData.map((data) => (
-                                <tr key={data.id}>
-                                    <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.first_name}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.last_name}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.generation}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.id}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-lg shadow-xl max-w-screen-sm w-full mx-4 my-8 overflow-y-auto relative">
+                        <h2 className="text-2xl font-semibold mb-4 text-center">ข้อมูลที่คุณค้นหา</h2>
+                        {displayData.length > 0 ? (
+                            <div className="overflow-x-auto max-h-96">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead>
+                                        <tr>
+                                            <th className="px-4 py-2 text-left sm:px-6">ชื่อ</th>
+                                            <th className="px-4 py-2 text-left sm:px-6">นามสกุล</th>
+                                            <th className="px-4 py-2 text-left sm:px-6">รุ่น</th>
+                                            <th className="px-4 py-2 text-left sm:px-6">รหัสประจำตัว</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-200">
+                                        {displayData.map((data) => (
+                                            <tr key={data.id}>
+                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.first_name}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.last_name}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.generation}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.id}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ) : (
+                            <p className="text-center text-gray-600">ไม่พบข้อมูล</p>
+                        )}
+                        {/* Positioning the close button at the top right of the modal */}
+                        <button
+                            className="absolute top-4 right-4 bg-indigo-700 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
+                            onClick={closeModal}
+                        >
+                            ปิด
+                        </button>
+                    </div>
                 </div>
-            ) : (
-                <p className="text-center text-gray-600">ไม่พบข้อมูล</p>
             )}
-            {/* Positioning the close button at the top right of the modal */}
-            <button
-                className="absolute top-4 right-4 bg-indigo-700 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
-                onClick={closeModal}
-            >
-                ปิด
-            </button>
-        </div>
-    </div>
-)}
 
 
 
