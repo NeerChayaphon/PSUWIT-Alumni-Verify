@@ -16,3 +16,65 @@
       transform: rotate(360deg);
   }
 }
+
+
+/* In your Tailwind CSS configuration or styles */
+.fade-in-animation {
+  animation: fade-in 0.3s ease-in-out forwards;
+}
+
+.fade-out-animation {
+  animation: fade-out 0.3s ease-in-out forwards;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+  display: none;
+}
+
+/* In your global CSS or module CSS */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* CSS classes for modal fade animation */
+.modal-fade-enter {
+  opacity: 0;
+}
+
+.modal-fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.modal-fade-exit {
+  opacity: 1;
+}
+
+.modal-fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}

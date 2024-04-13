@@ -1,7 +1,12 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import logoImage from '../assets/PWA_LOGO-02-white-crop-logo.png';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import Lottie from 'react-lottie';
+import spinner from '../assets/spinner.json';
+import notfound from '../assets/notfound.json';
+import found from '../assets/found.json';
+import { CSSTransition } from 'react-transition-group';
 
 interface FormData {
     firstName: string;
@@ -19,6 +24,34 @@ interface ApiData {
 }
 
 const Home: React.FC = () => {
+
+    const spinnerOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: spinner,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
+
+    const notfoundOptions = {
+        loop: false,
+        autoplay: true,
+        animationData: notfound,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
+
+    const foundOptions = {
+        loop: false,
+        autoplay: true,
+        animationData: found,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    }
+
     const [bgColor, setBgColor] = useState('bg-gradient-to-tl from-red-100 to-purple-900');
     const [bgColorChange, setBgColorChange] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,7 +123,7 @@ const Home: React.FC = () => {
                 // Make two separate API calls concurrently
                 const [response1, response2] = await Promise.all([
                     axios.get<ApiData[]>('https://script.google.com/macros/s/AKfycbz8bMqHqNuWcvi0mDkxxmRyxdQJNgpRBK23IXhPTv2hQAChEgLfah7HhAOg6FzeEnhgPw/exec?action=getM6'),
-                    axios.get<ApiData[]>('https://script.google.com/macros/s/AKfycbz8bMqHqNuWcvi0mDkxxmRyxdQJNgpRBK23IXhPTv2hQAChEgLfah7HhAOg6FzeEnhgPw/exec?action=getM6')
+                    axios.get<ApiData[]>('https://script.google.com/macros/s/AKfycbz8bMqHqNuWcvi0mDkxxmRyxdQJNgpRBK23IXhPTv2hQAChEgLfah7HhAOg6FzeEnhgPw/exec?action=getM3')
                 ]);
 
                 const data1 = response1.data;
@@ -109,6 +142,7 @@ const Home: React.FC = () => {
 
         fetchData();
     }, []);
+
 
     return (
         <div className={`min-h-screen ${bgColor} flex flex-col items-center justify-center px-4 w-full`}>
@@ -156,37 +190,60 @@ const Home: React.FC = () => {
                 </form>
             </div>
 
-            {isModalOpen && (
+            <CSSTransition
+                in={isModalOpen}
+                timeout={300}
+                classNames="modal-fade"
+                unmountOnExit
+            >
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-xl max-w-screen-sm w-full mx-4 my-8 overflow-y-auto relative">
-                        <h2 className="text-2xl font-semibold mb-4 text-center">ข้อมูลที่คุณค้นหา</h2>
+                        <div className="flex items-center justify-center">
+                            <h2 className="text-2xl font-semibold mb-4 text-center flex items-center">
+                                ข้อมูลที่คุณค้นหา
+                                {displayData.length > 0 && <Lottie
+                                    options={foundOptions}
+                                    height={40}
+                                    width={40}
+                                />}
+                            </h2>
+                        </div>
+
                         {displayData.length > 0 ? (
                             <div className="overflow-x-auto max-h-96">
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead>
-                                        <tr>
-                                            <th className="px-4 py-2 text-left sm:px-6">ชื่อ</th>
-                                            <th className="px-4 py-2 text-left sm:px-6">นามสกุล</th>
-                                            <th className="px-4 py-2 text-left sm:px-6">รุ่น</th>
-                                            <th className="px-4 py-2 text-left sm:px-6">รหัสประจำตัว</th>
+                                        <tr className="bg-gray-100">
+                                            <th className="px-4 py-3 text-left sm:px-6">ชื่อ</th>
+                                            <th className="px-4 py-3 text-left sm:px-6">นามสกุล</th>
+                                            <th className="px-4 py-3 text-left sm:px-6">รุ่น</th>
+                                            <th className="px-4 py-3 text-left sm:px-6">รหัสประจำตัว</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-200">
                                         {displayData.map((data) => (
-                                            <tr key={data.id}>
-                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.first_name}</td>
-                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.last_name}</td>
-                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.generation}</td>
-                                                <td className="px-4 py-2 whitespace-nowrap sm:px-6">{data.id}</td>
+                                            <tr key={data.id} className="hover:bg-gray-50 transition-colors duration-200">
+                                                <td className="px-4 py-3 whitespace-nowrap sm:px-6">{data.first_name}</td>
+                                                <td className="px-4 py-3 whitespace-nowrap sm:px-6">{data.last_name}</td>
+                                                <td className="px-4 py-3 whitespace-nowrap sm:px-6">{data.generation}</td>
+                                                <td className="px-4 py-3 whitespace-nowrap sm:px-6">{data.id}</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
                         ) : (
-                            <p className="text-center text-gray-600">ไม่พบข้อมูล</p>
+                            <div>
+                                <Lottie
+                                    options={notfoundOptions}
+                                    height={100}
+                                    width={100}
+                                />
+                                <p className="text-center text-gray-600">ไม่พบข้อมูล</p>
+                            </div>
+
                         )}
-                        {/* Positioning the close button at the top right of the modal */}
+                        {/* Close button positioned at the top right of the modal */}
                         <button
                             className="absolute top-4 right-4 bg-indigo-700 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
                             onClick={closeModal}
@@ -195,21 +252,42 @@ const Home: React.FC = () => {
                         </button>
                     </div>
                 </div>
-            )}
+            </CSSTransition>
 
 
 
 
 
-            {isLoading && (
-                <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
-                    <div className="spinner"></div>
-                    <p className="text-white text-lg mt-4">กำลังดาวน์โหลดข้อมูล...</p>
-                </div>
-            )}
-            {/* <footer className="fixed bottom-0 left-0 w-full bg-white bg-opacity-10 text-center text-white text-xs py-1">
-                สร้างโดย เนียร์ ฟ้า รุ่น 12
-            </footer> */}
+            <CSSTransition
+                in={isLoading}
+                timeout={300}
+                classNames="fade"
+                unmountOnExit
+            >
+                {isLoading ? (
+                    <div className="fixed top-0 left-0 z-50 w-full h-full flex flex-col items-center justify-center bg-gray-900 bg-opacity-60 fade-in-animation">
+                        <Lottie
+                            options={spinnerOptions}
+                            height={40}
+                            width={40}
+                        />
+                        <p className="text-gray-100 text-sm mt-2">กำลังดาวน์โหลดข้อมูล</p>
+                    </div>
+                ) : (
+                    <div className="fixed top-0 left-0 z-50 w-full h-full flex flex-col items-center justify-center bg-gray-900 bg-opacity-60 fade-out-animation">
+                        <Lottie
+                            options={spinnerOptions}
+                            height={40}
+                            width={40}
+                        />
+                        <p className="text-gray-100 text-sm mt-2">กำลังดาวน์โหลดข้อมูล</p>
+                    </div>
+                )}
+            </CSSTransition>
+
+            <div className="fixed bottom-0 left-0 right-0 bg-gray-900 bg-opacity-10 text-white px-4 py-1 text-center text-xs">
+                <p>Developed and maintained by Neer and Far (Gen 12)</p>
+            </div>
 
         </div>
     );
